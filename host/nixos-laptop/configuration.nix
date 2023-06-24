@@ -48,7 +48,8 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
+  # TODO: add auto suspension disable options either here
+  # or in the home-manager
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
@@ -82,7 +83,8 @@
   users.users.vasuper = {
     isNormalUser = true;
     description = "Vasudevan Perumal";
-    extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
     #  thunderbird
@@ -107,6 +109,14 @@
     wget
     git
     gh
+    docker
+    gnome.gnome-tweaks
+    gnome.gnome-shell-extensions
+    chezmoi
+    terminator
+    solaar
+    exa
+    btop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -116,6 +126,12 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.zsh = {
+    enable = true;   
+  };
+  # TODO: Use home-manager to setup omz and theming
+  # programs.zsh.ohMyZsh.enable = true;
+
   programs.git.enable = true;
   programs.git.config = {
     user.name = "vasuper";
@@ -123,12 +139,22 @@
   };
 
   # List services that you want to enable:
-
+  services.logind.extraConfig = "HandleLidSwitch=ignore";
+  # Enable flatpak
+  services.flatpak.enable = true;
+  
   # Enable the OpenSSH daemon.
+  # TODO: setup key based auth
   services.openssh.enable = true;
   services.openssh.settings = {
     PermitRootLogin = "yes";
     PasswordAuthentication = true;
+  };
+
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
   };
 
   # Open ports in the firewall.
