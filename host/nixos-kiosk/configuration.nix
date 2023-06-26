@@ -14,7 +14,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
   	enable = true;
@@ -98,6 +98,12 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+
+  programs.git.enable = true;
+  programs.git.config = {
+    user.name = "vasuper";
+    user.email = "vasu3797@gmail.com";
   };
 
   # List services that you want to enable:
