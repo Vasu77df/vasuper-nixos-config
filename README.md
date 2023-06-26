@@ -32,7 +32,7 @@ sudo ln -s /home/vasuper/.nixos-config/host/nixos-laptop/hardware-configuration.
 
 - Add root ownership permissions to the
 ```
-sudo chown -R vasuper /home/vasuper/.nixos-configa
+sudo chown -R vasuper /home/vasuper/.nixos-config
 ```
 
 - Now rebuild
